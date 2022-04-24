@@ -93,6 +93,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 1;
+  bool _runLoadingIcon = false;
 
   void _yelpRequest() async {
     Map<String, String> queryParameters = {
@@ -133,6 +134,14 @@ class _MyHomePageState extends State<MyHomePage> {
     Position position = await _determinePosition();
     gpsLatitude = position.latitude.toDouble();
     gpsLongitude = position.longitude.toDouble();
+    setState(() {});
+  }
+
+  Future<void> _savePositionF() async {
+    Position position = await _determinePosition();
+    gpsLatitude = position.latitude.toDouble();
+    gpsLongitude = position.longitude.toDouble();
+    _yelpRequest();
     setState(() {});
   }
 
@@ -386,13 +395,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: [
                           TextButton(
                               child: const Text('Directions'),
-                              onPressed: () {
-                                _launchUrl(Uri.parse(
-                                    yelp_json["businesses"][index]["url"]));
-                              }),
+                              onPressed: () {}),
                           TextButton(
                             child: const Text('View on Yelp'),
-                            onPressed: () {},
+                            onPressed: () {
+                              _launchUrl(Uri(
+                                  path: yelp_json["businesses"][index]["url"]));
+                            },
                           )
                         ],
                       ),
@@ -401,7 +410,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 ));
           }),
     );
-    var emptyPage = Text("i feel empty inside");
+    var emptyPage = Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        !_runLoadingIcon
+            ? ElevatedButton(
+                onPressed: () {
+                  _savePositionF();
+                  _runLoadingIcon = true;
+                },
+                child: const Text('Get restaurants'),
+              )
+            : CircularProgressIndicator()
+      ],
+    );
+
     List<Widget> _widgetOptions = <Widget>[
       Text(
         'Index 0: Likes',
@@ -425,8 +448,8 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Likes',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.explore),
+            label: 'Explore',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.restaurant),
