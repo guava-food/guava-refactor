@@ -77,7 +77,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const MyHomePage(title: '🍉 Guava'),
+      routes: {
+        '/': (context) => MyHomePage(title: "🍉 Guava"),
+        '/cuisines': (context) => CusinesPage(title: "cuisines"),
+        '/prices': (context) => PricesPage(title: "prices"),
+        '/radius': (context) => SearchRadiusPage(title: "radius"),
+        '/sortby': (context) => SortByPage(title: "sortby"),
+      },
     );
   }
 }
@@ -237,13 +243,17 @@ class _MyHomePageState extends State<MyHomePage> {
             SettingsTile.navigation(
                 leading: Icon(Icons.sort_rounded),
                 title: Text('Sort by'),
-                onPressed: (context) {},
+                onPressed: (context) {
+                  Navigator.pushNamed(context, "/sortby");
+                },
                 description:
                     sortBy == "-1" ? Text("No preference") : Text(sortBy)),
             SettingsTile.navigation(
               leading: Icon(Icons.directions_walk),
               title: Text('Search radius'),
-              onPressed: (context) {},
+              onPressed: (context) {
+                Navigator.pushNamed(context, "/radius");
+              },
               description: searchRadius == -1
                   ? Text("No preference")
                   : Text(searchRadius.toString()),
@@ -251,7 +261,9 @@ class _MyHomePageState extends State<MyHomePage> {
             SettingsTile.navigation(
               leading: Icon(Icons.restaurant_menu),
               title: Text('Cuisine'),
-              onPressed: (context) {},
+              onPressed: (context) {
+                Navigator.pushNamed(context, "/cuisines");
+              },
               description: cuisine == "-1"
                   ? Text("No preference")
                   : Text(searchRadius.toString()),
@@ -259,7 +271,9 @@ class _MyHomePageState extends State<MyHomePage> {
             SettingsTile.navigation(
               leading: Icon(Icons.attach_money),
               title: Text('Price'),
-              onPressed: (context) {},
+              onPressed: (context) {
+                Navigator.pushNamed(context, "/prices");
+              },
               description: pricesAllowed == "-1"
                   ? Text("No preference")
                   : Text(searchRadius.toString()),
