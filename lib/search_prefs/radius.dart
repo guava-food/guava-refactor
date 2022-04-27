@@ -14,25 +14,24 @@ class _SearchRadiusPageState extends State<SearchRadiusPage> {
   @override
   Widget build(BuildContext context) {
     double _distvalue = 0;
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.green,
-            title: Text("Distance Preference"),
+
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Search radius"),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: Slider(
+            value: _distvalue,
+            min: 0,
+            max: 25,
+            divisions: 25,
+            onChanged: (double value) {
+              setState(() {
+                _distvalue = value;
+              });
+            },
           ),
-          body: Center(
-            child: Slider(
-              value: _distvalue,
-              min: 0,
-              max: 25,
-              divisions: 25,
-              onChanged: (double value) {
-                setState(() {
-                  _distvalue = value;
-                });
-              },
-            ),
-          )),
-    );
+        ));
   }
 }

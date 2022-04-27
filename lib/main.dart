@@ -109,6 +109,10 @@ class _MyHomePageState extends State<MyHomePage> {
       'limit': '50',
       'latitude': gpsLatitude.toString(),
       'longitude': gpsLongitude.toString(),
+      'sort_by': sortBy,
+      'price': pricesAllowedNums == "" ? "1,2,3,4" : pricesAllowedNums,
+      'open_now': openNow.toString(),
+      'categories': cuisine == "No preference" ? "" : cuisine
     };
 
     var url =
@@ -270,7 +274,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: (context) {
                 Navigator.pushNamed(context, "/cuisines").then(_onGoBack);
               },
-              description: cuisine == "No preference"
+              description: cuisine == ""
                   ? Text("No preference")
                   : Text(cuisine.toString()),
             ),
@@ -280,9 +284,9 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: (context) {
                 Navigator.pushNamed(context, "/prices").then(_onGoBack);
               },
-              description: pricesAllowed == "-1"
+              description: pricesAllowedSyms == ""
                   ? Text("No preference")
-                  : Text(pricesAllowed.toString()),
+                  : Text("Only " + pricesAllowedSyms.toString()),
             ),
           ],
         ),
@@ -329,11 +333,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       height: 400,
                       child: Stack(children: [
-                        Ink.image(
-                          image: CachedNetworkImageProvider(
-                              yelp_json["businesses"][index]["image_url"]),
-                          fit: BoxFit.cover,
-                        ),
+                        yelp_json["businesses"][index]["image_url"] != ""
+                            ? Ink.image(
+                                image: CachedNetworkImageProvider(
+                                    yelp_json["businesses"][index]
+                                        ["image_url"]),
+                                fit: BoxFit.cover,
+                              )
+                            : Ink.image(
+                                image:
+                                    AssetImage('assets/icons/guava_stock.jpg'),
+                                fit: BoxFit.cover,
+                              ),
                         Padding(
                           padding: const EdgeInsets.all(20.0),
                           child: Row(

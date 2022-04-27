@@ -3,7 +3,8 @@ double gpsLongitude = -1;
 
 bool openNow = false;
 double searchRadius = -1;
-String sortBy = "-1";
-String cuisine = "-1";
-String pricesAllowed = "No preference";
+String sortBy = "best_match";
+String cuisine = "";
+String pricesAllowedNums = "";
+String pricesAllowedSyms = "";
 List<String> pricesAllowedList = [];

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:guava_refactor/data_files/gua_globals.dart';
+import "package:flutter/material.dart";
+import "package:guava_refactor/data_files/gua_globals.dart";
 
 class SortByPage extends StatefulWidget {
   const SortByPage({Key? key, required this.title}) : super(key: key);
@@ -11,7 +11,13 @@ class SortByPage extends StatefulWidget {
 }
 
 class _SortByPageState extends State<SortByPage> {
-  List<String> sortby = ['Best match', 'Distance', 'Rating', 'Review Count'];
+  final List<String> _sortByList = [
+    "best_match",
+    "rating",
+    "review_count",
+    "distance"
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,16 +29,16 @@ class _SortByPageState extends State<SortByPage> {
         child: ListView.builder(
           itemBuilder: (BuildContext context, int index) {
             return RadioListTile(
-                title: Text(sortby[index]),
-                value: sortby[index],
-                groupValue: sortby,
+                title: Text(_sortByList[index]),
+                value: _sortByList[index],
+                groupValue: sortBy,
                 onChanged: (value) {
                   setState(() {
-                    sortBy = sortby[index];
+                    sortBy = _sortByList[index];
                   });
                 });
           },
-          itemCount: sortby.length,
+          itemCount: _sortByList.length,
         ),
       ),
     );
