@@ -33,7 +33,7 @@ class _CuisinesPageState extends State<CuisinesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Search radius"),
+        title: const Text("Cuisines"),
         centerTitle: true,
       ),
       body: Center(

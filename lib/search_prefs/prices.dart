@@ -15,11 +15,16 @@ class _PricesPageState extends State<PricesPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-        title: Text("Flutter Slider"),
-      ),
-      body: Text("data"),
-    ));
+            appBar: AppBar(
+              backgroundColor: Colors.green,
+              title: Text("Pricing"),
+            ),
+            body: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                //OutlinedButton(onPressed: onPressed, child: child)
+              ],
+            )));
   }
 }

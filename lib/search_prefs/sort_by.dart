@@ -11,6 +11,7 @@ class SortByPage extends StatefulWidget {
 }
 
 class _SortByPageState extends State<SortByPage> {
+  List<String> sortby = ['Best match', 'Distance', 'Rating', 'Review Count'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +19,22 @@ class _SortByPageState extends State<SortByPage> {
         title: const Text("Sort by"),
         centerTitle: true,
       ),
-      body: Center(child: Text("hello world")),
+      body: Center(
+        child: ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            return RadioListTile(
+                title: Text(sortby[index]),
+                value: sortby[index],
+                groupValue: sortby,
+                onChanged: (value) {
+                  setState(() {
+                    sortBy = sortby[index];
+                  });
+                });
+          },
+          itemCount: sortby.length,
+        ),
+      ),
     );
   }
 }
