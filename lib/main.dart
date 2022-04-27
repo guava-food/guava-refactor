@@ -326,7 +326,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   children: [
                     ListTile(
-                      title: Text(yelp_json["businesses"][index]["name"]),
+                      title: Row(
+                        children: [
+                          Text(yelp_json["businesses"][index]["name"]),
+                          SizedBox(
+                            width: 50,
+                          ),
+                        ],
+                      ),
                       subtitle: Text(_catList(index)),
                       trailing: Icon(Icons.favorite_outline),
                     ),
@@ -347,8 +354,32 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                         Padding(
                           padding: const EdgeInsets.all(20.0),
-                          child: Row(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              yelp_json["businesses"][index]["is_closed"]
+                                  ? Column(
+                                      children: [
+                                        Text(
+                                          "Now open",
+                                          style: TextStyle(
+                                              background: Paint()
+                                                ..color =
+                                                    Color.fromARGB(200, 0, 0, 0)
+                                                ..strokeWidth = 14
+                                                ..strokeJoin = StrokeJoin.round
+                                                ..strokeCap = StrokeCap.round
+                                                ..style = PaintingStyle.stroke,
+                                              color: Colors.green,
+                                              // fontWeight: FontWeight.bold,
+                                              fontSize: 12),
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                      ],
+                                    )
+                                  : Container(),
                               yelp_json["businesses"][index]["distance"]
                                               .toInt() /
                                           1609 <
@@ -391,20 +422,25 @@ class _MyHomePageState extends State<MyHomePage> {
                                           // fontWeight: FontWeight.bold,
                                           fontSize: 12),
                                     ),
-                              Spacer(),
-                              Text(
-                                "${yelp_json["businesses"][index]["price"]}",
-                                style: TextStyle(
-                                    background: Paint()
-                                      ..color = Color.fromARGB(200, 0, 0, 0)
-                                      ..strokeWidth = 14
-                                      ..strokeJoin = StrokeJoin.round
-                                      ..strokeCap = StrokeCap.round
-                                      ..style = PaintingStyle.stroke,
-                                    color: Colors.white,
-                                    // fontWeight: FontWeight.bold,
-                                    fontSize: 12),
+                              SizedBox(
+                                height: 20,
                               ),
+                              yelp_json["businesses"][index]["price"] != null
+                                  ? Text(
+                                      "${yelp_json["businesses"][index]["price"]}",
+                                      style: TextStyle(
+                                          background: Paint()
+                                            ..color =
+                                                Color.fromARGB(200, 0, 0, 0)
+                                            ..strokeWidth = 14
+                                            ..strokeJoin = StrokeJoin.round
+                                            ..strokeCap = StrokeCap.round
+                                            ..style = PaintingStyle.stroke,
+                                          color: Colors.white,
+                                          // fontWeight: FontWeight.bold,
+                                          fontSize: 12),
+                                    )
+                                  : Text(""),
                             ],
                           ),
                         )
@@ -418,7 +454,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           itemBuilder: (context, index) =>
                               _image('assets/icons/not_a_watermelon.png'),
                           itemCount: 5,
-                          itemSize: 40.0,
+                          itemSize: 24.0,
                           unratedColor: Color.fromARGB(255, 122, 156, 65),
                         ),
                       ),
