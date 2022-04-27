@@ -12,6 +12,9 @@ import 'search_prefs/sort_by.dart';
 import 'data_files/gua_globals.dart';
 import 'data_files/likes_list.dart';
 import 'data_files/rest_list.dart';
+import 'package:guava_refactor/navbar_pages/likes_page.dart';
+import 'package:guava_refactor/navbar_pages/settings_ui.dart';
+import 'package:guava_refactor/navbar_pages/explore_page.dart';
 
 import 'package:geolocator/geolocator.dart';
 
@@ -112,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
       'sort_by': sortBy,
       'price': pricesAllowedNums == "" ? "1,2,3,4" : pricesAllowedNums,
       'open_now': openNow.toString(),
-      'categories': cuisine == "No preference" ? "" : cuisine
+      'categories': cuisine != "No preference" ? "" : cuisine
     };
 
     var url =
@@ -120,8 +123,14 @@ class _MyHomePageState extends State<MyHomePage> {
     var api =
         "CSPBb5_jfbSmHLPjALQ2zoIgKlP2VlSTa6uJJOw3icdkfgnBAbKGypM2X2eatNaohl7EPHDbVD3t0LNXYv1SIvNisq76WkFvTVHGb8LoYuhZaDzjMWoCYMnYBJtMYnYx";
 
-    var response =
-        await http.get(url, headers: {'Authorization': 'Bearer ' + api});
+    var response = await http.get(
+      url,
+      headers: {
+        'Authorization': 'Bearer ' + api,
+        "Access-Control-Allow-Headers": "Access-Control-Allow-Origin, Accept",
+        "Origin": ""
+      },
+    );
     if (response.statusCode == 200) {
       print(response.statusCode);
       print(queryParameters.toString());
@@ -313,6 +322,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
     var containerPage = Container(
+      constraints: BoxConstraints(minWidth: 100, maxWidth: 600),
       child: ListView.separated(
           scrollDirection: Axis.vertical,
           separatorBuilder: (BuildContext context, int index) => const Divider(
@@ -335,7 +345,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         ],
                       ),
                       subtitle: Text(_catList(index)),
-                      trailing: Icon(Icons.favorite_outline),
+                      trailing: IconButton(
+                        icon: Icon(Icons.favorite_outline),
+                        onPressed: () {},
+                      ),
                     ),
                     Container(
                       height: 400,
@@ -448,30 +461,37 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     Stack(children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
-                        child: RatingBarIndicator(
-                          rating: yelp_json["businesses"][index]["rating"],
-                          itemBuilder: (context, index) =>
-                              _image('assets/icons/not_a_watermelon.png'),
-                          itemCount: 5,
-                          itemSize: 24.0,
-                          unratedColor: Color.fromARGB(255, 122, 156, 65),
+                        padding: const EdgeInsets.fromLTRB(18.0, 0.0, 8.0, 0.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            RatingBarIndicator(
+                              rating: yelp_json["businesses"][index]["rating"],
+                              itemBuilder: (context, index) =>
+                                  _image('assets/icons/not_a_watermelon.png'),
+                              itemCount: 5,
+                              itemSize: 24.0,
+                              unratedColor: Color.fromARGB(255, 122, 156, 65),
+                            ),
+                            Spacer(),
+                            ButtonBar(
+                              children: [
+                                TextButton(
+                                    child: const Text('Directions'),
+                                    onPressed: () {}),
+                                TextButton(
+                                  child: const Text('View on Yelp'),
+                                  onPressed: () {
+                                    _launchUrl(Uri(
+                                        path: yelp_json["businesses"][index]
+                                            ["url"]));
+                                  },
+                                )
+                              ],
+                            ),
+                          ],
                         ),
-                      ),
-                      ButtonBar(
-                        children: [
-                          TextButton(
-                              child: const Text('Directions'),
-                              onPressed: () {}),
-                          TextButton(
-                            child: const Text('View on Yelp'),
-                            onPressed: () {
-                              _launchUrl(Uri(
-                                  path: yelp_json["businesses"][index]["url"]));
-                            },
-                          )
-                        ],
-                      ),
+                      )
                     ])
                   ],
                 ));
