@@ -11,10 +11,17 @@ class SearchRadiusPage extends StatefulWidget {
 }
 
 class _SearchRadiusPageState extends State<SearchRadiusPage> {
-  @override
-  Widget build(BuildContext context) {
-    double _distvalue = 0;
+  String _returnDistance() {
+    if (_distvalue == 0) {
+      return "No preference";
+    } else {
+      return _distvalue.round().toString() + " miles";
+    }
+  }
 
+  @override
+  double _distvalue = 0;
+  Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Search radius"),
@@ -26,9 +33,11 @@ class _SearchRadiusPageState extends State<SearchRadiusPage> {
             min: 0,
             max: 25,
             divisions: 25,
+            label: (_returnDistance()),
             onChanged: (double value) {
               setState(() {
                 _distvalue = value;
+                value = searchRadius;
               });
             },
           ),

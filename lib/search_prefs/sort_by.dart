@@ -12,10 +12,10 @@ class SortByPage extends StatefulWidget {
 
 class _SortByPageState extends State<SortByPage> {
   final List<String> _sortByList = [
-    "best_match",
-    "rating",
-    "review_count",
-    "distance"
+    "Best Match",
+    "Rating",
+    "Review Count",
+    "Distance"
   ];
 
   @override
