@@ -13,12 +13,13 @@ class PricesPage extends StatefulWidget {
 class _PricesPageState extends State<PricesPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+        home: Scaffold(
       appBar: AppBar(
-        title: const Text("Price"),
-        centerTitle: true,
+        backgroundColor: Colors.green,
+        title: Text("Flutter Slider"),
       ),
-      body: Center(child: Text("hello world")),
-    );
+      body: Text("data"),
+    ));
   }
 }

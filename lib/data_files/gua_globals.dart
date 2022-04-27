@@ -5,5 +5,5 @@ bool openNow = false;
 double searchRadius = -1;
 String sortBy = "-1";
 String cuisine = "-1";
-String pricesAllowed = "-1";
+String pricesAllowed = "No preference";
 List<String> pricesAllowedList = [];

@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import 'dart:async';
+
 import 'search_prefs/cuisines.dart';
 import 'search_prefs/prices.dart';
 import 'search_prefs/radius.dart';
@@ -79,7 +81,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => MyHomePage(title: "🍉 Guava"),
-        '/cuisines': (context) => CusinesPage(title: "cuisines"),
+        '/cuisines': (context) => CuisinesPage(title: "cuisines"),
         '/prices': (context) => PricesPage(title: "prices"),
         '/radius': (context) => SearchRadiusPage(title: "radius"),
         '/sortby': (context) => SortByPage(title: "sortby"),
@@ -134,6 +136,10 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  FutureOr _onGoBack(dynamic value) {
+    setState(() {});
   }
 
   void _savePosition() async {
@@ -244,7 +250,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 leading: Icon(Icons.sort_rounded),
                 title: Text('Sort by'),
                 onPressed: (context) {
-                  Navigator.pushNamed(context, "/sortby");
+                  Navigator.pushNamed(context, "/sortby").then(_onGoBack);
                 },
                 description:
                     sortBy == "-1" ? Text("No preference") : Text(sortBy)),
@@ -252,7 +258,7 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: Icon(Icons.directions_walk),
               title: Text('Search radius'),
               onPressed: (context) {
-                Navigator.pushNamed(context, "/radius");
+                Navigator.pushNamed(context, "/radius").then(_onGoBack);
               },
               description: searchRadius == -1
                   ? Text("No preference")
@@ -262,21 +268,21 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: Icon(Icons.restaurant_menu),
               title: Text('Cuisine'),
               onPressed: (context) {
-                Navigator.pushNamed(context, "/cuisines");
+                Navigator.pushNamed(context, "/cuisines").then(_onGoBack);
               },
-              description: cuisine == "-1"
+              description: cuisine == "No preference"
                   ? Text("No preference")
-                  : Text(searchRadius.toString()),
+                  : Text(cuisine.toString()),
             ),
             SettingsTile.navigation(
               leading: Icon(Icons.attach_money),
               title: Text('Price'),
               onPressed: (context) {
-                Navigator.pushNamed(context, "/prices");
+                Navigator.pushNamed(context, "/prices").then(_onGoBack);
               },
               description: pricesAllowed == "-1"
                   ? Text("No preference")
-                  : Text(searchRadius.toString()),
+                  : Text(pricesAllowed.toString()),
             ),
           ],
         ),
