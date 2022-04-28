@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _yelpRequest() async {
     Map<String, String> queryParameters = {
-      'term': 'food',
+      'https://api.yelp.com/v3/businesses/search?term': 'food',
       'limit': '50',
       'latitude': gpsLatitude.toString(),
       'longitude': gpsLongitude.toString(),
@@ -118,8 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
       'categories': cuisine != "No preference" ? "" : cuisine
     };
 
-    var url =
-        Uri.https("api.yelp.com", "/v3/businesses/search", queryParameters);
+    var url = Uri.https("cors.amouxaden.workers.dev", "/", queryParameters);
     var api =
         "CSPBb5_jfbSmHLPjALQ2zoIgKlP2VlSTa6uJJOw3icdkfgnBAbKGypM2X2eatNaohl7EPHDbVD3t0LNXYv1SIvNisq76WkFvTVHGb8LoYuhZaDzjMWoCYMnYBJtMYnYx";
 
@@ -127,8 +126,6 @@ class _MyHomePageState extends State<MyHomePage> {
       url,
       headers: {
         'Authorization': 'Bearer ' + api,
-        "Access-Control-Allow-Headers": "Access-Control-Allow-Origin, Accept",
-        "Origin": ""
       },
     );
     if (response.statusCode == 200) {
