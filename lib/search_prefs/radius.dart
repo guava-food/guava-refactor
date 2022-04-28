@@ -37,7 +37,7 @@ class _SearchRadiusPageState extends State<SearchRadiusPage> {
             onChanged: (double value) {
               setState(() {
                 _distvalue = value;
-                value = searchRadius;
+                searchRadius = value.toInt();
               });
             },
           ),

@@ -115,7 +115,12 @@ class _MyHomePageState extends State<MyHomePage> {
       'sort_by': sortBy,
       'price': pricesAllowedNums == "" ? "1,2,3,4" : pricesAllowedNums,
       'open_now': openNow.toString(),
-      'categories': cuisine != "No preference" ? "" : cuisine
+      'categories': cuisine != "No preference" ? "" : cuisine,
+      'radius': searchRadius == -1 ||
+              searchRadius * 1609 >= 40000 ||
+              searchRadius == 0
+          ? 40000.toString()
+          : (searchRadius * 1609).toString()
     };
 
     var url = Uri.https("cors.amouxaden.workers.dev", "/", queryParameters);
@@ -270,9 +275,9 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: (context) {
                 Navigator.pushNamed(context, "/radius").then(_onGoBack);
               },
-              description: searchRadius == -1
+              description: searchRadius == -1 || searchRadius == 0
                   ? Text("No preference")
-                  : Text(searchRadius.toString()),
+                  : Text(searchRadius.toString() + ' miles'),
             ),
             SettingsTile.navigation(
               leading: Icon(Icons.restaurant_menu),
