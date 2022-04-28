@@ -263,7 +263,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.pushNamed(context, "/sortby").then(_onGoBack);
                 },
                 description:
-                    sortBy == "-1" ? Text("No preference") : Text(sortBy)),
+                    sortBy == "-1" ? Text("No preference") : Text(sortByUI)),
             SettingsTile.navigation(
               leading: Icon(Icons.directions_walk),
               title: Text('Search radius'),

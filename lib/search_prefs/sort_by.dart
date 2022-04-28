@@ -18,6 +18,13 @@ class _SortByPageState extends State<SortByPage> {
     "distance"
   ];
 
+  final List<String> _sortByNames = [
+    "Best Match",
+    "Rating",
+    "Review Count",
+    "Distance"
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,12 +36,13 @@ class _SortByPageState extends State<SortByPage> {
         child: ListView.builder(
           itemBuilder: (BuildContext context, int index) {
             return RadioListTile(
-                title: Text(_sortByList[index]),
+                title: Text(_sortByNames[index]),
                 value: _sortByList[index],
                 groupValue: sortBy,
                 onChanged: (value) {
                   setState(() {
                     sortBy = _sortByList[index];
+                    sortByUI = _sortByNames[index];
                   });
                 });
           },

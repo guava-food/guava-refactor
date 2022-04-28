@@ -4,6 +4,7 @@ double gpsLongitude = -1;
 bool openNow = false;
 double searchRadius = -1;
 String sortBy = "best_match";
+String sortByUI = "Best Match";
 String cuisine = "";
 String pricesAllowedNums = "";
 String pricesAllowedSyms = "";
